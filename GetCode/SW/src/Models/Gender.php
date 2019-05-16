@@ -1,0 +1,12 @@
+<?php
+
+namespace GetCode\SW\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Gender extends Model {
+
+    protected $fillable = [
+        'gender'
+    ];
+}

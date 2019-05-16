@@ -13,3 +13,4 @@ yarn-error.log
 data
 .styleci.yml
 .editorconfig
+_ide_helper.php

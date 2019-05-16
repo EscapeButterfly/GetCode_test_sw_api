@@ -1,0 +1,25 @@
+{
+    "name": "nxllifier/swapitest",
+    "description": "test task",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vitalii Horovoi",
+            "email": "vitalii.gorovoii@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "GetCode\\SW\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GetCode\\SW\\SWServiceProvider"
+            ]
+        }
+    }
+}
