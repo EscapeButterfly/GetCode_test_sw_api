@@ -202,7 +202,8 @@ class PeopleEntity extends BaseEntity {
             'gender_id'    => $this->gender_id,
             'homeworld_id' => $this->homeworld_id,
             'created'      => $this->created,
-            'url'          => $this->url
+            'url'          => $this->url,
+            'relations'    => $this->relations
         ];
     }
 }
