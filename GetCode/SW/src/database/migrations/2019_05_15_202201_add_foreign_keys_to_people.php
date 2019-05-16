@@ -12,9 +12,6 @@ class AddForeignKeysToPeople extends Migration {
      */
     public function up() {
         Schema::table('people', function (Blueprint $table) {
-            $table->foreign('gender_id')
-                ->references('id')
-                ->on('genders');
 
             $table->foreign('homeworld_id')
                 ->references('id')

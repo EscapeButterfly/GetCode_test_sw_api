@@ -10,7 +10,7 @@ class SWServiceProvider extends ServiceProvider {
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot() {
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes/swapi.php');
+        $this->loadRoutesFrom(__DIR__ . '/routes/swapi.php');
 
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
@@ -18,7 +18,7 @@ class SWServiceProvider extends ServiceProvider {
             __DIR__ . '/database/migrations/' => database_path('migrations')
         ], 'migrations');
 
-        $this->app->make(EloquentFactory::class)->load(__DIR__ . '/factories/');
+        $this->app->make(EloquentFactory::class)->load(__DIR__ . '/database/factories/');
     }
 
     public function register() {

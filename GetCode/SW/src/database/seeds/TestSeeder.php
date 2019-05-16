@@ -8,7 +8,6 @@ use GetCode\SW\Models\Film;
 use GetCode\SW\Models\People;
 use Illuminate\Database\Seeder;
 use GetCode\SW\Models\HomeWorld;
-use Illuminate\Support\Facades\DB;
 
 class TestSeeder extends Seeder {
     /**
@@ -17,59 +16,28 @@ class TestSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        DB::table('genders')->insert([
-            'gender' => 'male',
-        ]);
+        /*$planets = ['Endor', 'Hoth', 'Dragobah', 'Jakku', 'Naboo', 'Tatooine'];
+        foreach ($planets as $planet) {
+            HomeWorld::query()->create([
+                'name' => $planet
+            ]);
+        }*/
 
-        DB::table('genders')->insert([
-            'gender' => 'female',
-        ]);
+        /*$films = ['A New Hope', 'The Empire Strikes Back', 'Return of the Jedi', 'The Phantom Menace',
+                  'Attack of the Clones', 'Revenge of the Sith', 'The Force Awakens', 'The Last Jedi', 'The Rise of Skywalker'];
+        foreach ($films as $film) {
+            Film::query()->create([
+                'title' => $film
+            ]);
+        }*/
 
-        DB::table('genders')->insert([
-            'gender' => 'n/a',
-        ]);
-
-        HomeWorld::query()->create([
-            'name' => 'Yavin IV'
-        ]);
-
-        HomeWorld::query()->create([
-            'name' => 'Hoth'
-        ]);
-
-        People::query()->create([
-            'name'         => 'Dolbich',
-            'height'       => 156,
-            'mass'         => 53,
-            'hair_color'   => 'red',
-            'birth_year'   => '11BBY',
-            'gender_id'    => 1,
-            'homeworld_id' => 1,
-            'created'      => \Carbon\Carbon::now(),
-            'url'          => 'qwe'
-        ]);
-
-        People::query()->create([
-            'name'         => 'Stepan',
-            'height'       => 211,
-            'mass'         => 101,
-            'hair_color'   => 'blue',
-            'birth_year'   => '1BBY',
-            'gender_id'    => 3,
-            'homeworld_id' => 2,
-            'created'      => \Carbon\Carbon::now(),
-            'url'          => 'qwe'
-        ]);
-
-        $film1 = Film::query()->create([
-            'title' => 'A New Hope',
-        ]);
-        $film1->people()->attach([1, 2]);
-
-        $film2 = Film::query()->create([
-            'title' => 'Attack of the Clones',
-        ]);
-
-        $film2->people()->attach(1);
+        /*$homeworlds = HomeWorld::query()->get();
+        $films = Film::query()->get();
+        factory(People::class, 25)->create()->each(function ($people) use ($homeworlds, $films) {
+            $people->homeworld()->associate($homeworlds->random(1)->first()->id);
+            $people->save();
+            $filmsIDs = $films->random(rand(1,3))->pluck('id');
+            $people->films()->attach($filmsIDs);
+        });*/
     }
 }

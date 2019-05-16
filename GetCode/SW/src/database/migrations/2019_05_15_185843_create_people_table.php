@@ -18,8 +18,8 @@ class CreatePeopleTable extends Migration {
             $table->unsignedInteger('mass');
             $table->string('hair_color');
             $table->string('birth_year');
-            $table->unsignedBigInteger('gender_id');
-            $table->unsignedBigInteger('homeworld_id');
+            $table->enum('gender', ['male', 'female', 'n/a']);
+            $table->unsignedBigInteger('homeworld_id')->nullable();
             $table->timestamp('created');
             $table->string('url');
             $table->timestamps();
