@@ -3,15 +3,12 @@
 
 namespace GetCode\SW\Entities;
 
-use JsonSerializable;
-use ReflectionClass;
-
 
 /**
  * Class PeopleEntity
  * @package GetCode\SW\Entities
  */
-class PeopleEntity extends BaseEntity implements JsonSerializable {
+class PeopleEntity extends BaseEntity {
     /**
      * @var string
      */

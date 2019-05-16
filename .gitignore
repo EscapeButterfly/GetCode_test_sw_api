@@ -14,3 +14,4 @@ data
 .styleci.yml
 .editorconfig
 _ide_helper.php
+composer.lock

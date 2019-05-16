@@ -3,12 +3,14 @@
 
 namespace GetCode\SW\Entities;
 
+use JsonSerializable;
+
 
 /**
  * Class BaseEntity
  * @package GetCode\SW\Entities
  */
-abstract class BaseEntity {
+abstract class BaseEntity implements JsonSerializable {
 
     /**
      * @var int
