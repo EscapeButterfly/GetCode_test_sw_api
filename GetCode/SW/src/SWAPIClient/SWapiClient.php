@@ -39,6 +39,14 @@ class SWapiClient {
         return $characters;
     }
 
+    public function getFilms(array $filmUrls) {
+        //TODO
+    }
+
+    public function getHomeWorld($worldID) {
+        //TODO
+    }
+
     /**
      * @param       $charactersData
      * @param array $neededCharacterNames

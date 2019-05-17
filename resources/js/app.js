@@ -16,7 +16,6 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 import HomeComponent from './components/HomeComponent.vue';
 import CreateComponent from './components/CreateComponent.vue';
 import PeoplesComponent from './components/PeoplesComponent.vue';
-import EditComponent from './components/EditComponent.vue';
 import App from './components/App'
 
 const routes = [
@@ -37,8 +36,8 @@ const routes = [
     },
     {
         name: 'edit',
-        path: '/people/edit/:id',
-        component: EditComponent
+        path: "people/edit/:id",
+        component: CreateComponent
     }
 ];
 

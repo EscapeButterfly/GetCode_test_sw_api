@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Add Star Wars character</h1>
+        <h1>{{ this.title }}</h1>
         <form @submit.prevent="checkFormOnNull">
             <div class="row">
                 <div class="col-md-4">
@@ -92,7 +92,6 @@
                                 class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span>
                         </template>
                     </multiselect>
-                    <pre class="language-json"><code>{{ value  }}</code></pre>
                 </div>
             </div>
             <br/>
@@ -112,6 +111,7 @@
         },
         data() {
             return {
+                title: "Add Star Wars Character",
                 people: {
                     name: null,
                     height: null,
@@ -126,15 +126,17 @@
                 },
                 validationErrors: {},
                 homeWorlds: [],
-                films: []
+                films: [],
+                edit: false,
             }
         },
         mounted: function () {
+            this.isEdit();
             this.getHomeWorlds();
             this.getFilms();
         },
         methods: {
-            addPost() {
+            addCharacter() {
                 let uri = 'http://localhost:3088/sw/people/create';
                 this.axios.post(uri, this.people)
                     .then((response) => {
@@ -166,7 +168,37 @@
                     }
                 });
 
-                if (Object.keys(this.validationErrors).length === 0) this.addPost();
+                if (Object.keys(this.validationErrors).length === 0) {
+                    if (this.edit === false) {
+                        this.addCharacter();
+                    } else {
+                        this.updateCharacter();
+                    }
+                }
+            },
+            getCharacterData(id) {
+                let uri = `http://localhost:3088/sw/people/${id}`;
+                this.axios.get(uri)
+                    .then((response) => {
+                        this.people = response.data;
+                        this.title = "Edit " + this.people.name + " info";
+                    })
+            },
+            updateCharacter() {
+                let uri = `http://localhost:3088/sw/people/edit/${this.$route.params.id}`;
+                this.axios.patch(uri, this.people)
+                    .then((response) => {
+                        this.$router.push({name: 'home'});
+                    })
+                    .catch(e => {
+                        this.validationErrors = e.response.data.errors
+                    })
+            },
+            isEdit() {
+                if (this.$route.params.id) {
+                    this.getCharacterData(this.$route.params.id);
+                    this.edit = true;
+                }
             }
         }
     }

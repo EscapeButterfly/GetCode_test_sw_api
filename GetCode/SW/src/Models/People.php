@@ -2,6 +2,7 @@
 
 namespace GetCode\SW\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class People extends Model {
@@ -22,6 +23,10 @@ class People extends Model {
         $this->attributes['birth_year'] = strtoupper($value);
     }
 
+    public function getCreatedAttribute($value) {
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
     /**
      * @param $query
      * @param $value
@@ -40,7 +45,6 @@ class People extends Model {
             return $query;
         });
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

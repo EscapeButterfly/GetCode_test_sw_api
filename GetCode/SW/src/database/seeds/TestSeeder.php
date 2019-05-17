@@ -22,8 +22,8 @@ class TestSeeder extends Seeder {
                 'name' => $planet
             ]);
         }*/
-
-        /*$films = ['A New Hope', 'The Empire Strikes Back', 'Return of the Jedi', 'The Phantom Menace',
+/*
+        $films = ['A New Hope', 'The Empire Strikes Back', 'Return of the Jedi', 'The Phantom Menace',
                   'Attack of the Clones', 'Revenge of the Sith', 'The Force Awakens', 'The Last Jedi', 'The Rise of Skywalker'];
         foreach ($films as $film) {
             Film::query()->create([
@@ -31,7 +31,7 @@ class TestSeeder extends Seeder {
             ]);
         }*/
 
-        /*$homeworlds = HomeWorld::query()->get();
+       /* $homeworlds = HomeWorld::query()->get();
         $films = Film::query()->get();
         factory(People::class, 25)->create()->each(function ($people) use ($homeworlds, $films) {
             $people->homeworld()->associate($homeworlds->random(1)->first()->id);

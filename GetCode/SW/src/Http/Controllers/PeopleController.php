@@ -6,6 +6,7 @@ namespace GetCode\SW\Http\Controllers;
 
 use GetCode\SW\Http\Requests\PeopleRequest;
 use GetCode\SW\Repositories\PeopleRepository;
+use Illuminate\Http\Request;
 
 class PeopleController extends BaseController {
 
@@ -21,13 +22,11 @@ class PeopleController extends BaseController {
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index() {
-        $responseData = $this->repository
-            ->with('homeworld')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+    public function index(Request $request) {
+        $responseData = $this->repository->getIndex($request->query->get('search'));
         return response()->json($responseData);
     }
 
@@ -40,12 +39,20 @@ class PeopleController extends BaseController {
     }
 
     /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getPeopleByWorld($id) {
+        return response()->json($this->repository->getPeopleByWorld($id));
+    }
+
+    /**
      * @param PeopleRequest $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function create(PeopleRequest $request) {
-        return response()->json($this->repository->create($request->validated()));
+        return response()->json($this->repository->addPeople($request->validated()));
     }
 
     /**

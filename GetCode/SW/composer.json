@@ -18,8 +18,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "GetCode\\SW\\SWServiceProvider",
-                "GetCode\\SW\\Repositories\\Eloquent\\RepositoryServiceProvider"
+                "GetCode\\SW\\SWServiceProvider"
             ]
         }
     }

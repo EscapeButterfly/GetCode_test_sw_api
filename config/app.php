@@ -166,7 +166,6 @@ return [
          * Package Service Providers...
          */
         GetCode\SW\SWServiceProvider::class,
-        \GetCode\SW\Repositories\Eloquent\RepositoryServiceProvider::class,
 
         /*
          * Application Service Providers...

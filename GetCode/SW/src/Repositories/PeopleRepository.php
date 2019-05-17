@@ -17,4 +17,44 @@ class PeopleRepository extends BaseRepository {
     public function model() {
         return People::class;
     }
+
+    /**
+     * @param string $search
+     * @return mixed
+     */
+    public function getIndex(string $search = null) {
+        return People::query()
+            ->search($search)
+            ->with(['homeworld', 'films'])  //scope
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+    }
+
+    /**
+     * @param array $attributes
+     * @return mixed|void
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function addPeople(array $attributes) {
+        $filmIDs = [];
+        if (array_key_exists('films', $attributes)) {
+            //TODO валидация
+            foreach ($attributes['films'] as $film) {
+                array_push($filmIDs, $film['id']);
+            }
+        }
+        $people = $this->create($attributes);
+        if (!empty($filmIDs)) $people->films()->attach($filmIDs);
+    }
+
+    /**
+     * @param int $homeWorldID
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getPeopleByWorld(int $homeWorldID) {
+        return $this
+            ->findByField('homeworld_id', $homeWorldID)
+            ->with(['homeworld', 'films'])
+            ->paginate(10);
+    }
 }

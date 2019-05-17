@@ -19,11 +19,13 @@ class CreatePeopleFilmTable extends Migration {
 
             $table->foreign('people_id')
                 ->references('id')
-                ->on('people');
+                ->on('people')
+                ->onDelete('cascade');
 
             $table->foreign('film_id')
                 ->references('id')
-                ->on('films');
+                ->on('films')
+                ->onDelete('cascade');
         });
     }
 

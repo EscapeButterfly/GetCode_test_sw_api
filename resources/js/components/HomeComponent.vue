@@ -37,20 +37,21 @@
                 <td>{{ people.created }}</td>
                 <td>{{ people.url }}</td>
                 <td>
-                    <router-link :to="{name: 'edit', params: { id: people.id, name: people.name }}" class="btn btn-primary">
+                    <router-link :to="{name: 'edit', params: { id: people.id }}" class="btn btn-primary">
                         Edit
                     </router-link>
-                    <button class="btn btn-danger" v-on:click="deletePeople(people.id)">
+                    <button class="btn btn-danger" v-on:click="deletePeople(people)">
                         Delete
                     </button>
                 </td>
             </tr>
             </tbody>
         </table>
-
-        <pagination :data="data"
-                    @pagination-change-page="getPageData">
-        </pagination>
+        <div>
+            <pagination :data="data"
+                        @pagination-change-page="getPageData">
+            </pagination>
+        </div>
     </div>
 </template>
 
@@ -77,11 +78,11 @@
             this.getData()
         },
         methods: {
-            deletePeople: function (id) {
-                let uri = `http://localhost:3088/sw/people/${id}/delete`;
+            deletePeople: function (people) {
+                let uri = `http://localhost:3088/sw/people/delete/${people.id}`;
                 this.axios.delete(uri)
                     .then((response) => {
-                        this.data.data.splice(this.data.data.indexOf(id), 1);
+                        this.data.data.splice(this.data.data.indexOf(people), 1);
                     })
             },
             getData: function () {

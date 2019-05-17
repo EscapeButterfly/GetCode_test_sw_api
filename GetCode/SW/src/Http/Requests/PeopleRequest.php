@@ -30,7 +30,9 @@ class PeopleRequest extends FormRequest {
             'gender'       => 'required|string|in:male,female,n/a',
             'homeworld_id' => 'required|integer|exists:home_worlds,id',
             'created'      => 'required|date_format: "Y-m-d"',
-            'url'          => 'required|string'
+            'url'          => 'required|string',
+            'films'        => 'array',
+            'films.*.id'   => 'integer|exists:films,id'
         ];
     }
 }

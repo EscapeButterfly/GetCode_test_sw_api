@@ -7,9 +7,9 @@ Route::prefix('sw')->group(function () {
         Route::get('/', 'GetCode\SW\Http\Controllers\PeopleController@index')->name('sw.people.index');
         Route::get('/{id}', 'GetCode\SW\Http\Controllers\PeopleController@getById')->name('sw.people.byId');
         Route::post('/create', 'GetCode\SW\Http\Controllers\PeopleController@create')->name('sw.people.create');
-        Route::patch('/{id}/update', 'GetCode\SW\Http\Controllers\PeopleController@update')->name('sw.people.update');
-        Route::delete('/{id}/delete', 'GetCode\SW\Http\Controllers\PeopleController@delete')->name('sw.people.delete');
-
+        Route::patch('/edit/{id}', 'GetCode\SW\Http\Controllers\PeopleController@update')->name('sw.people.update');
+        Route::delete('/delete/{id}', 'GetCode\SW\Http\Controllers\PeopleController@delete')->name('sw.people.delete');
+        Route::get('/world/{id}', 'GetCode\SW\Http\Controllers\PeopleController@getPeopleByWorld')->name('sw.people.by.world');
     });
 
     Route::prefix('homeworlds')->group(function () {
