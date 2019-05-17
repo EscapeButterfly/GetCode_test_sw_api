@@ -40,7 +40,7 @@
                     <router-link :to="{name: 'edit', params: { id: people.id, name: people.name }}" class="btn btn-primary">
                         Edit
                     </router-link>
-                    <button class="btn btn-danger" v-on:click="">
+                    <button class="btn btn-danger" v-on:click="deletePeople(people.id)">
                         Delete
                     </button>
                 </td>
@@ -59,6 +59,7 @@
         data() {
             return {
                 data: {
+                    id: null,
                     current_page: null,
                     data: [],
                     first_page_url: null,
@@ -76,11 +77,11 @@
             this.getData()
         },
         methods: {
-            delete: function (people) {
-                let uri = `http://localhost:3088/sw/people/${people.id}/delete`;
+            deletePeople: function (id) {
+                let uri = `http://localhost:3088/sw/people/${id}/delete`;
                 this.axios.delete(uri)
                     .then((response) => {
-                        this.data.data.splice(this.data.data.indexOf(people.id), 1);
+                        this.data.data.splice(this.data.data.indexOf(id), 1);
                     })
             },
             getData: function () {
