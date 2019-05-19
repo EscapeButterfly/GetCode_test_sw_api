@@ -14,6 +14,7 @@ class CreateHomeWorldsTable extends Migration {
         Schema::create('home_worlds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('url');
             $table->timestamps();
         });
     }

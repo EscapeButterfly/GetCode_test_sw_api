@@ -8,7 +8,7 @@
             </div>
         </div>
         <br/>
-        <table class="table table-hover">
+        <table class="table table-hover" v-if="data.data.length">
             <thead>
             <tr>
                 <th>ID</th>
@@ -47,6 +47,7 @@
             </tr>
             </tbody>
         </table>
+        <button v-else class="btn btn-primary" v-on:click="getDefault">Get default data</button>
         <div>
             <pagination :data="data"
                         @pagination-change-page="getPageData">
@@ -60,7 +61,6 @@
         data() {
             return {
                 data: {
-                    id: null,
                     current_page: null,
                     data: [],
                     first_page_url: null,
@@ -94,6 +94,13 @@
             },
             getPageData: function (page = 1) {
                 this.axios.get(this.data.first_page_url.slice(0, -1) + page)
+                    .then((response) => {
+                        this.data = response.data
+                    })
+            },
+            getDefault: function () {
+                let uri = 'http://localhost:3088/sw/api/default';
+                this.axios.get(uri)
                     .then((response) => {
                         this.data = response.data
                     })

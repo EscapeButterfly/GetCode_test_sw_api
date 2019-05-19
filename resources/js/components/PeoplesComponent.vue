@@ -1,39 +1,50 @@
 <template>
-    <h1>Peoples</h1>
-    <br/>
-    <div class="row">
-        <div class="col-md-4">
-            <label class="typo__label">Select world</label>
-            <multiselect v-model="value" :options="options" :searchable="false" :close-on-select="false"
-                         :show-labels="false" placeholder="Pick a world">
-            </multiselect>
-        </div>
-    </div>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Films</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="people in data.data" v-bind:key="people.id">
-            <td>{{ people.id }}</td>
-            <td>{{ people.name }}</td>
-            <td>{{ people.films }}</td>
-        </tr>
-        </tbody>
-    </table>
     <div>
-        <pagination :data="data"
-                    @pagination-change-page="getPageData">
-        </pagination>
+        <h1>Search people by planets</h1>
+        <br/>
+        <div class="row">
+            <div class="col-md-2">
+                <multiselect v-model="searchWorld" :options="worlds" label="name" track-by="name" :searchable="false"
+                             :close-on-select="true"
+                             :show-labels="false" placeholder="Pick a planet">
+                </multiselect>
+            </div>
+            <div>
+                <button class="btn btn-primary" v-on:click="search()">Search</button>
+            </div>
+        </div>
+        <br/>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Films</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="people in data.data" v-bind:key="people.id">
+                <td>{{ people.id }}</td>
+                <td>{{ people.name }}</td>
+                <td>{{ getFilmNames(people.films) }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <pagination :data="data"
+                        @pagination-change-page="getPageData">
+            </pagination>
+        </div>
     </div>
 </template>
 
 <script>
+    import Multiselect from 'vue-multiselect'
+
     export default {
+        components: {
+            Multiselect
+        },
         data() {
             return {
                 data: {
@@ -48,18 +59,41 @@
                     prev_page_url: null,
                     to: null,
                     total: null
-                }
+                },
+                worlds: [],
+                searchWorld: null
             }
         },
         mounted() {
-            console.log('Index Component mounted.')
+            this.getWorlds();
         },
         methods: {
+            search: function () {
+                let uri = `http://localhost:3088/sw/people/world/${this.searchWorld.id}`;
+                this.axios.get(uri)
+                    .then((response) => {
+                        this.data = response.data
+                    })
+            },
             getPageData: function (page = 1) {
                 this.axios.get(this.data.first_page_url.slice(0, -1) + page)
                     .then((response) => {
                         this.data = response.data
                     })
+            },
+            getWorlds: function () {
+                let uri = 'http://localhost:3088/sw/homeworlds/';
+                this.axios.get(uri)
+                    .then((response) => {
+                        this.worlds = response.data
+                    })
+            },
+            getFilmNames: function (films) {
+                let filmsString = [];
+                films.forEach(function (film) {
+                    filmsString.push(film.title)
+                });
+                return filmsString.join(', ');
             }
         }
     }

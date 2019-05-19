@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HomeWorld extends Model {
 
     protected $fillable = [
-        'name'
+        'name',
+        'url'
     ];
 }

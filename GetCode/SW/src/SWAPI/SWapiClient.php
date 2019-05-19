@@ -8,6 +8,8 @@ use GuzzleHttp\Client;
 class SWapiClient {
     const SWAPI_BASE_URI = "https://swapi.co/api/";
     const SWAPI_PEOPLE_URI = 'people';
+    const SWAPI_FILMS_URI = 'films';
+    const SWAPI_PLANETS_URI = 'planets';
 
     /** @var Client */
     private $client;
@@ -39,12 +41,16 @@ class SWapiClient {
         return $characters;
     }
 
-    public function getFilms(array $filmUrls) {
-        //TODO
+    public function getFilms() {
+        $response     = $this->client->get(self::SWAPI_FILMS_URI);
+        $responseBody = json_decode($response->getBody());
+        return $responseBody->results;
     }
 
-    public function getHomeWorld($worldID) {
-        //TODO
+    public function getHomeWorlds(string $homeworldUrl) {
+        $response     = $this->client->get($homeworldUrl);
+        $responseBody = json_decode($response->getBody());
+        return $responseBody;
     }
 
     /**

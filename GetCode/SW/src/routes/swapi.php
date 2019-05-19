@@ -2,8 +2,11 @@
 
 Route::prefix('sw')->group(function () {
 
-    Route::prefix('people')->group(function () {
+    Route::prefix('api')->group(function () {
+        Route::get('/default', 'GetCode\SW\Http\Controllers\SWapiController@getBaseData')->name('sw.api.default');
+    });
 
+    Route::prefix('people')->group(function () {
         Route::get('/', 'GetCode\SW\Http\Controllers\PeopleController@index')->name('sw.people.index');
         Route::get('/{id}', 'GetCode\SW\Http\Controllers\PeopleController@getById')->name('sw.people.byId');
         Route::post('/create', 'GetCode\SW\Http\Controllers\PeopleController@create')->name('sw.people.create');

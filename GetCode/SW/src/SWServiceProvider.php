@@ -2,6 +2,9 @@
 
 namespace GetCode\SW;
 
+use GetCode\SW\Repositories\PeopleRepository;
+use GetCode\SW\SWAPI\SWapiClient;
+use GetCode\SW\SWAPI\SWapiService;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 
@@ -22,6 +25,10 @@ class SWServiceProvider extends ServiceProvider {
     }
 
     public function register() {
+        $this->app->bind(SWapiService::class, function ($app) {
+            return new SWapiService(new SWapiClient(), new PeopleRepository($app));
+        });
 
+        $this->app->alias(SWapiService::class, 'getcode.sw.apiservice');
     }
 }

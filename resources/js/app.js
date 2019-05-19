@@ -36,7 +36,7 @@ const routes = [
     },
     {
         name: 'edit',
-        path: "people/edit/:id",
+        path: "/people/edit/:id",
         component: CreateComponent
     }
 ];

@@ -4,7 +4,10 @@
 namespace GetCode\SW\Repositories;
 
 
+use Carbon\Carbon;
+use GetCode\SW\Models\Film;
 use GetCode\SW\Models\People;
+use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class PeopleRepository extends BaseRepository {
@@ -25,7 +28,7 @@ class PeopleRepository extends BaseRepository {
     public function getIndex(string $search = null) {
         return People::query()
             ->search($search)
-            ->with(['homeworld', 'films'])  //scope
+            ->with(['homeworld', 'films'])//scope
             ->orderBy('id', 'desc')
             ->paginate(10);
     }
@@ -52,8 +55,8 @@ class PeopleRepository extends BaseRepository {
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getPeopleByWorld(int $homeWorldID) {
-        return $this
-            ->findByField('homeworld_id', $homeWorldID)
+        return People::query()
+            ->where('homeworld_id', $homeWorldID)
             ->with(['homeworld', 'films'])
             ->paginate(10);
     }
