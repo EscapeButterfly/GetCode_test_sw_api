@@ -4,7 +4,7 @@ test task
 ## How to run :)
 Install docker, then cd into project dir.
 ```
-docker-compose build -d
+docker-compose up --build -d
 docker-compose exec app bash
 ```
 
